@@ -18,11 +18,22 @@ describe('User Test/login', () => {
         sinon.stub(SequelizeUser, 'findOne').resolves(invalidBody as any);
 
         const {status, body} = await chai.request(app).post('/login');
-        console.log(status);
+        // console.log(status);
         
         expect(status).to.equal(400);
         expect(body).to.deep.equal({message: "All fields must be filled"})
     });
+
+    // it('should return token', async function(){
+    //     sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+    //     sinon.stub(ValidateLogin, 'validate').returns()
+
+    //     const {status, body} = await chai.request(app).post('/login').send(userBody)
+
+    //     expect(status).to.equal(200);
+    //     // console.log(body);
+    //     expect(body).to.have.key('token')
+    // })
 
     afterEach(function () {
         sinon.restore();
