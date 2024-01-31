@@ -12,10 +12,7 @@ type LoginResponse = {
 export default class UserService {
   private static readonly invalidCredentialsResponse: ServiceResponseError = {
     status: 'UNAUTHORIZED',
-    data: {
-      message: 'Credenciais inválidas',
-    },
-  };
+    data: { message: 'Invalid email or password' } };
 
   constructor(
     private userModel: IUserModel = new UserModel(),
