@@ -1,3 +1,4 @@
+// import { ServiceMessage } from '../Interfaces/ServiceResponse';
 import { IMatch } from '../Interfaces/matches/IMatch';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
@@ -51,5 +52,17 @@ export default class MatchModel implements IMatchModel {
       }],
     });
     return dbData;
+  }
+
+  async findById(id: IMatch['id']): Promise<IMatch | null> {
+    const dbData = await this.model.findByPk(id);
+    if (!dbData) return null;
+    return dbData.dataValues;
+  }
+
+  async update(id: IMatch['id']): Promise<IMatch | null> {
+    const [affectedRows] = await this.model.update({ inProgress: false }, { where: { id } });
+    if (affectedRows === 0) return null;
+    return this.findById(id);
   }
 }
