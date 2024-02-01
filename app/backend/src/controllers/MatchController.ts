@@ -7,7 +7,22 @@ export default class MatchController {
   ) { }
 
   public async findAllMatches(req: Request, res: Response) {
-    const serviceResponse = await this.matchService.findAllMatches();
-    return res.status(200).json(serviceResponse.data);
+    const { inProgress } = req.query;
+    // console.log(inProgress);
+
+    if (inProgress === undefined) {
+      const serviceResponse = await this.matchService.findAllMatches();
+      return res.status(200).json(serviceResponse.data);
+    }
+
+    if (inProgress === 'false') {
+      const serviceResponse = await this.matchService.findMatchesNotInProgress();
+      return res.status(200).json(serviceResponse.data);
+    }
+
+    if (inProgress === 'true') {
+      const serviceResponse = await this.matchService.findMatchesInProgress();
+      return res.status(200).json(serviceResponse.data);
+    }
   }
 }
