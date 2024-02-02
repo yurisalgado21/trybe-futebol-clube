@@ -1,12 +1,28 @@
 import MatchModel from '../models/MatchModel';
 import { IMatch } from '../Interfaces/matches/IMatch';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
-import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
+import { ServiceMessage, ServiceResponse,
+  ServiceResponseCreated } from '../Interfaces/ServiceResponse';
 
 export default class MatchService {
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
   ) { }
+
+  public async createMatches(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<ServiceResponseCreated<IMatch>> {
+    const matchesCreated = await this.matchModel.create(
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+    );
+    return { status: 'CREATED', data: matchesCreated };
+  }
 
   public async findAllMatches(): Promise<ServiceResponse<IMatch[]>> {
     const matches = await this.matchModel.findAll();

@@ -7,6 +7,20 @@ import SequelizeTeam from '../database/models/SequelizeTeam';
 export default class MatchModel implements IMatchModel {
   private model = SequelizeMatches;
 
+  async create(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<IMatch> {
+    const dbData = await this.model.create({ homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true });
+    return dbData;
+  }
+
   async findAll(): Promise<IMatch[]> {
     const dbData = await this.model.findAll({
       attributes: ['id', 'homeTeamId', 'homeTeamGoals', 'awayTeamId',

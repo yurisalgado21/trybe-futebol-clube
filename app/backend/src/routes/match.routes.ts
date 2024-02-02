@@ -15,5 +15,9 @@ router.patch('/:id', ValidateLogin.handle, (
   req: Request,
   res: Response,
 ) => matchController.updatedMatchInProgress(req, res));
-
+router.post(
+  '/',
+  ValidateLogin.handle,
+  (req: Request, res: Response) => matchController.createMatches(req, res),
+);
 export default router;

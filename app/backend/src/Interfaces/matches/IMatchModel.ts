@@ -2,6 +2,8 @@
 import { IMatch } from './IMatch';
 
 export interface IMatchModel {
+  create(homeTeamId: number, awayTeamId: number,
+    homeTeamGoals: number, awayTeamGoals: number): Promise<IMatch>
   findAll(): Promise<IMatch[]>
   findMatchesInProgress(): Promise<IMatch[]>
   findMatchesNotInProgress(): Promise<IMatch[]>

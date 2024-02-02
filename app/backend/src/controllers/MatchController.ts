@@ -8,6 +8,18 @@ export default class MatchController {
     private matchService = new MatchService(),
   ) { }
 
+  public async createMatches(req: Request, res: Response) {
+    const { homeTeamId, awayTeamId,
+      homeTeamGoals, awayTeamGoals } = req.body;
+    const serviceResponse = await this.matchService.createMatches(
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+    );
+    return res.status(201).json(serviceResponse.data);
+  }
+
   public async findAllMatches(req: Request, res: Response) {
     const { inProgress } = req.query;
     // console.log(inProgress);
