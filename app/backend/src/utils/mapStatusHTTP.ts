@@ -12,6 +12,8 @@ export default function mapStatusHTTP(status:string): number {
 
     case 'CONFLICT': return 409;
 
+    case 'UNPROCESSABLE ENTITY': return 422;
+
     default: return 500;
   }
 }

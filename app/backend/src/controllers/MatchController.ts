@@ -17,7 +17,7 @@ export default class MatchController {
       homeTeamGoals,
       awayTeamGoals,
     );
-    return res.status(201).json(serviceResponse.data);
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
   }
 
   public async findAllMatches(req: Request, res: Response) {

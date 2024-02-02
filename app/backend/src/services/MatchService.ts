@@ -1,12 +1,24 @@
+import { ITeamModel } from '../Interfaces/teams/ITeamModel';
+import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
 import { IMatch } from '../Interfaces/matches/IMatch';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
 import { ServiceMessage, ServiceResponse,
-  ServiceResponseCreated } from '../Interfaces/ServiceResponse';
+  ServiceResponseCreated,
+  ServiceResponseError } from '../Interfaces/ServiceResponse';
 
 export default class MatchService {
+  private static readonly notFoundResponse: ServiceResponseError = {
+    status: 'NOT_FOUND',
+    data: { message: 'There is no team with such id!' } };
+
+  private static readonly ivalidEqualMatches: ServiceResponseError = {
+    status: 'UNPROCESSABLE ENTITY',
+    data: { message: 'It is not possible to create a match with two equal teams' } };
+
   constructor(
     private matchModel: IMatchModel = new MatchModel(),
+    private teamModel: ITeamModel = new TeamModel(),
   ) { }
 
   public async createMatches(
@@ -14,7 +26,11 @@ export default class MatchService {
     awayTeamId: number,
     homeTeamGoals: number,
     awayTeamGoals: number,
-  ): Promise<ServiceResponseCreated<IMatch>> {
+  ): Promise<ServiceResponseCreated<IMatch> | ServiceResponseError> {
+    const homeTeam = await this.teamModel.findById(homeTeamId);
+    const awayTeam = await this.teamModel.findById(awayTeamId);
+    if (!homeTeam?.teamName || !awayTeam?.teamName) return MatchService.notFoundResponse;
+    if (homeTeam.teamName === awayTeam.teamName) return MatchService.ivalidEqualMatches;
     const matchesCreated = await this.matchModel.create(
       homeTeamId,
       awayTeamId,
