@@ -11,5 +11,9 @@ router.patch('/:id/finish', ValidateLogin.handle, (
   req: Request,
   res: Response,
 ) => matchController.updateMatch(req, res));
+router.patch('/:id', ValidateLogin.handle, (
+  req: Request,
+  res: Response,
+) => matchController.updatedMatchInProgress(req, res));
 
 export default router;

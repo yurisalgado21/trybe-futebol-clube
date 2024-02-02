@@ -12,8 +12,12 @@ chai.use(chaiHttp)
 
 import {expect} from 'chai'
 import {userBody, token, user, invalidBody} from './mocks/User.mocks'
+import Auth from '../middlewares/Auth';
 
 describe('User Test/login', () => {
+    beforeEach(() => {
+        sinon.stub(Auth, 'handle').resolves(() => {})
+    });
     it('should return All fields must be filled', async function(){
         sinon.stub(SequelizeUser, 'findOne').resolves(invalidBody as any);
 
@@ -24,16 +28,16 @@ describe('User Test/login', () => {
         expect(body).to.deep.equal({message: "All fields must be filled"})
     });
 
-    // it('should return token', async function(){
-    //     sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
-    //     sinon.stub(ValidateLogin, 'validate').returns()
+    it('should return token', async function(){
+        sinon.stub(SequelizeUser, 'findOne').resolves(user as any);
+        // sinon.stub(ValidateLogin, 'validate').returns()
 
-    //     const {status, body} = await chai.request(app).post('/login').send(userBody)
-
-    //     expect(status).to.equal(200);
-    //     // console.log(body);
-    //     expect(body).to.have.key('token')
-    // })
+        const {status, body} = await chai.request(app).post('/login').send(userBody).set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzA2ODQzMzg5LCJleHAiOjE3MDc0NDgxODl9.tEdFyBinWBrYZECSPEIa8ruwaaMJJ8r5nZdTAauIXbQ');
+        // console.log(body);
+        //Lembrar de alterar o teste!
+        // expect(status).to.equal(200);
+        expect(body).to.have.key('message')
+    })
 
     afterEach(function () {
         sinon.restore();

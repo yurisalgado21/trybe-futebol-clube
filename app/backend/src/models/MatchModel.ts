@@ -65,4 +65,12 @@ export default class MatchModel implements IMatchModel {
     if (affectedRows === 0) return null;
     return this.findById(id);
   }
+
+  async updateMatchesInProgress(id: number, homeTeamGoals:
+  number, awayTeamGoals: number): Promise<IMatch | null> {
+    const [affectedRows] = await this.model.update({ homeTeamGoals,
+      awayTeamGoals }, { where: { id } });
+    if (affectedRows === 0) return null;
+    return this.findById(id);
+  }
 }

@@ -7,4 +7,6 @@ export interface IMatchModel {
   findMatchesNotInProgress(): Promise<IMatch[]>
   findById(id: IMatch['id']): Promise<IMatch | null>
   update(id: IMatch['id']): Promise<IMatch | null>
+  updateMatchesInProgress(id: number, homeTeamGoals:
+  number, awayTeamGoals: number): Promise<IMatch | null>
 }

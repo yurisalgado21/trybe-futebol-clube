@@ -34,4 +34,20 @@ export default class MatchService {
     }
     return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
   }
+
+  public async updatedMatchInProgress(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<ServiceResponse<ServiceMessage>> {
+    const matchFound = await this.matchModel.findById(id);
+    if (!matchFound) return { status: 'NOT_FOUND', data: { message: `Match ${id} not found` } };
+    const updatedMatch = await this.matchModel
+      .updateMatchesInProgress(id, homeTeamGoals, awayTeamGoals);
+    if (!updatedMatch) {
+      return { status: 'CONFLICT',
+        data: { message: 'There are no updates to perform in this Match' } };
+    }
+    return { status: 'SUCCESSFUL', data: { message: 'Finished' } };
+  }
 }
