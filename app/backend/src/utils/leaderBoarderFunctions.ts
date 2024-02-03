@@ -1,4 +1,4 @@
-import { IMatch } from '../Interfaces/matches/IMatch';
+import { IMatch, LeaderBoarderResponse } from '../Interfaces/matches/IMatch';
 
 const totalPoints = (id: number, matches: IMatch[]) => {
   let total = 0;
@@ -73,6 +73,13 @@ const goalsOwn = (id: number, matches: IMatch[]) => {
 const efficiency = (id: number, matches: IMatch[]) =>
   (totalPoints(id, matches) / (totalGames(id, matches) * 3)) * 100;
 
+const order = (leaderBoardHome: LeaderBoarderResponse[]) => {
+  const result = [...leaderBoardHome]
+    .sort((a, b) => b.totalPoints - a.totalPoints
+    || b.goalsBalance - a.goalsBalance || b.goalsFavor - a.goalsFavor);
+  return result;
+};
+
 export {
   totalPoints,
   totalGames,
@@ -82,4 +89,5 @@ export {
   goalsFavor,
   goalsOwn,
   efficiency,
+  order,
 };

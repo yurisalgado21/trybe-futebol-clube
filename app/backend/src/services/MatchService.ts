@@ -8,7 +8,7 @@ import { ServiceMessage, ServiceResponse,
   ServiceResponseError } from '../Interfaces/ServiceResponse';
 import { totalPoints, totalGames,
   totalVictories, totalDraws, totalLosses,
-  goalsFavor, goalsOwn, efficiency } from '../utils/leaderBoarderFunctions';
+  goalsFavor, goalsOwn, efficiency, order } from '../utils/leaderBoarderFunctions';
 
 export default class MatchService {
   private static readonly notFoundResponse: ServiceResponseError = {
@@ -38,10 +38,10 @@ export default class MatchService {
       goalsFavor: goalsFavor(team.id, matches),
       goalsOwn: goalsOwn(team.id, matches),
       goalsBalance: goalsFavor(team.id, matches) - goalsOwn(team.id, matches),
-      efficiency: parseFloat(efficiency(team.id, matches).toFixed(2)),
+      efficiency: efficiency(team.id, matches).toFixed(2),
     }));
-
-    return { status: 'SUCCESSFUL', data: leaderBoardHome };
+    const result = order(leaderBoardHome);
+    return { status: 'SUCCESSFUL', data: result };
   }
 
   public async createMatches(
