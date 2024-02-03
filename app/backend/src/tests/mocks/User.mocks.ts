@@ -3,7 +3,14 @@ const user = {
     username: 'Admin',
     role: 'admin',
     email: 'admin@admin.com',
-    password: 'secret_admin'
+    password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+}
+
+const user2 = {
+    username: 'Admin',
+    role: 'admin',
+    email: 'admin@admin.com',
+    password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
 }
 
 const userBody = {
@@ -18,11 +25,11 @@ const invalidBody = {
 
   
 const token = {
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE3MDY3MDczMjksImV4cCI6MTcwNzMxMjEyOX0.-rd44JDrlwXOhJJ1pIeTqWtTQwUflFi-cEvYYkhLOIw"
-}
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwiaWF0IjoxNzA2OTAxNTU2LCJleHAiOjE3MDc1MDYzNTZ9.ePQ_CmezWM3jpazGi4Xncde_5acdvhDZYlpPcQzYXEY"}
 
 export {
     user,
+    user2,
     token,
     userBody,
     invalidBody

@@ -6,6 +6,9 @@ import { IMatchModel } from '../Interfaces/matches/IMatchModel';
 import { ServiceMessage, ServiceResponse,
   ServiceResponseCreated,
   ServiceResponseError } from '../Interfaces/ServiceResponse';
+import { totalPoints, totalGames,
+  totalVictories, totalDraws, totalLosses,
+  goalsFavor, goalsOwn, efficiency } from '../utils/leaderBoarderFunctions';
 
 export default class MatchService {
   private static readonly notFoundResponse: ServiceResponseError = {
@@ -20,6 +23,26 @@ export default class MatchService {
     private matchModel: IMatchModel = new MatchModel(),
     private teamModel: ITeamModel = new TeamModel(),
   ) { }
+
+  public async leaderBoardHome() {
+    const matches = await this.matchModel.findMatchesNotInProgress();
+    const teams = await this.teamModel.findAll();
+
+    const leaderBoardHome = teams.map((team) => ({
+      name: team.teamName,
+      totalPoints: totalPoints(team.id, matches),
+      totalGames: totalGames(team.id, matches),
+      totalVictories: totalVictories(team.id, matches),
+      totalDraws: totalDraws(team.id, matches),
+      totalLosses: totalLosses(team.id, matches),
+      goalsFavor: goalsFavor(team.id, matches),
+      goalsOwn: goalsOwn(team.id, matches),
+      goalsBalance: goalsFavor(team.id, matches) - goalsOwn(team.id, matches),
+      efficiency: parseFloat(efficiency(team.id, matches).toFixed(2)),
+    }));
+
+    return { status: 'SUCCESSFUL', data: leaderBoardHome };
+  }
 
   public async createMatches(
     homeTeamId: number,

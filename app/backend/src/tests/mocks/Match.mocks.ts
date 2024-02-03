@@ -28,11 +28,36 @@ const match2 = {
   }
 }
 
+const matchUpdateGoals = {
+  "homeTeamGoals": 3,
+  "awayTeamGoals": 1
+}
+
+const newMatch = {
+  "homeTeamId": 16,
+  "awayTeamId": 8,
+  "homeTeamGoals": 2,
+  "awayTeamGoals": 2
+}
+
+const returnNewMatch = {
+  "id": 1,
+  "homeTeamId": 16,
+  "homeTeamGoals": 2,
+  "awayTeamId": 8,
+  "awayTeamGoals": 2,
+  "inProgress": true
+}
+
 const matches = [match]
 const matches2 = [match2]
 
 export {
     match,
+    match2,
     matches,
-    matches2
+    matches2,
+    matchUpdateGoals, 
+    newMatch, 
+    returnNewMatch
 }

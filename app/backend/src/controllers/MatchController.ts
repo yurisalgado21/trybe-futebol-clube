@@ -8,6 +8,11 @@ export default class MatchController {
     private matchService = new MatchService(),
   ) { }
 
+  public async leaderBoardHome(_req: Request, res: Response) {
+    const serviceResponse = await this.matchService.leaderBoardHome();
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+  }
+
   public async createMatches(req: Request, res: Response) {
     const { homeTeamId, awayTeamId,
       homeTeamGoals, awayTeamGoals } = req.body;
