@@ -2,14 +2,21 @@ import { Request, Response } from 'express';
 // import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 import MatchService from '../services/MatchService';
+import LeaderBoard from '../services/LeaderBoardService';
 
 export default class MatchController {
   constructor(
     private matchService = new MatchService(),
+    private leaderBoardService = new LeaderBoard(),
   ) { }
 
   public async leaderBoardHome(_req: Request, res: Response) {
     const serviceResponse = await this.matchService.leaderBoardHome();
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+  }
+
+  public async leaderBoardAway(_req: Request, res: Response) {
+    const serviceResponse = await this.leaderBoardService.leaderBoardAway();
     return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
   }
 

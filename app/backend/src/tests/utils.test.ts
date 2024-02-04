@@ -4,7 +4,7 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { app } from '../app';
+import { App, app } from '../app';
 
 import SequelizeTeam from '../database/models/SequelizeTeam';
 
@@ -42,6 +42,7 @@ describe('Utils Test', () => {
    const result = mapStatusHTTP('');
    expect(result).to.equal(500)
  });
+
 
   afterEach(function () {
     sinon.restore();
