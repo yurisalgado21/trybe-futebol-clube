@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 
 const {expect} = chai;
 
-describe('LeaderBoard Test', function() {
+describe('LeaderBoardHome Test', function() {
     beforeEach(() => {
         sinon.restore()
     });
@@ -74,3 +74,4 @@ describe('LeaderBoard Test', function() {
         expect(result).to.equal(2)
     });
 });
+
