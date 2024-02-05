@@ -1,4 +1,8 @@
+import { ITeam } from '../Interfaces/teams/ITeam';
 import { IMatch, LeaderBoarderResponse } from '../Interfaces/matches/IMatch';
+import { totalPointsAway, totalDrawsAway, totalGamesAway,
+  totalLossesAway, totalVictoriesAway,
+  goalsFavorAway, goalsOwnAway } from './leaderBoardAwayFunctions';
 
 const totalPoints = (id: number, matches: IMatch[]) => {
   let total = 0;
@@ -80,6 +84,38 @@ const order = (leaderBoardHome: LeaderBoarderResponse[]) => {
   return result;
 };
 
+const efficiencyFinal = (
+  pointsAway: number,
+  points: number,
+  gamesAway: number,
+  games: number,
+) => {
+  const totalP = pointsAway + points;
+  const totalG = gamesAway + games;
+  return ((totalP / (totalG * 3)) * 100).toFixed(2);
+};
+
+const orderFinal = (teams: ITeam[], matches: IMatch[]) => {
+  const leaderBoardFinal = teams.map((team: ITeam) => ({ name: team.teamName,
+    totalPoints: totalPoints(team.id, matches) + totalPointsAway(team.id, matches),
+    totalGames: totalGames(team.id, matches) + totalGamesAway(team.id, matches),
+    totalVictories: totalVictories(team.id, matches) + totalVictoriesAway(team.id, matches),
+    totalDraws: totalDraws(team.id, matches) + totalDrawsAway(team.id, matches),
+    totalLosses: totalLosses(team.id, matches) + totalLossesAway(team.id, matches),
+    goalsFavor: goalsFavor(team.id, matches) + goalsFavorAway(team.id, matches),
+    goalsOwn: goalsOwn(team.id, matches) + goalsOwnAway(team.id, matches),
+    goalsBalance: (goalsFavor(team.id, matches) - goalsOwn(team.id, matches))
+     + (goalsFavorAway(team.id, matches) - goalsOwnAway(team.id, matches)),
+    efficiency: efficiencyFinal(
+      totalPointsAway(team.id, matches),
+      totalPoints(team.id, matches),
+      totalGamesAway(team.id, matches),
+      totalGames(team.id, matches),
+    ),
+  }));
+  return leaderBoardFinal;
+};
+
 export {
   totalPoints,
   totalGames,
@@ -89,5 +125,7 @@ export {
   goalsFavor,
   goalsOwn,
   efficiency,
+  efficiencyFinal,
   order,
+  orderFinal,
 };

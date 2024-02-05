@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 import MatchService from '../services/MatchService';
 import LeaderBoard from '../services/LeaderBoardService';
@@ -17,6 +16,14 @@ export default class MatchController {
 
   public async leaderBoardAway(_req: Request, res: Response) {
     const serviceResponse = await this.leaderBoardService.leaderBoardAway();
+    return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+  }
+
+  public async leaderBoard(_req: Request, res: Response) {
+    const home = await this.matchService.leaderBoardHome();
+    console.log(home);
+
+    const serviceResponse = await this.leaderBoardService.leaderBoard();
     return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
   }
 

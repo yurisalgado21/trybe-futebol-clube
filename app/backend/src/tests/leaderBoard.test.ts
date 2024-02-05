@@ -6,8 +6,10 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 
 import SequelizeMatches from '../database/models/SequelizeMatches';
-import {totalPoints, totalVictories, totalDraws, totalLosses, goalsFavor, goalsOwn} from '../utils/leaderBoarderFunctions'
-import {matches} from './mocks/LeaderBoard.mock';
+import {totalPoints, totalVictories, totalDraws, totalLosses, goalsFavor, goalsOwn, orderFinal, efficiencyFinal} from '../utils/leaderBoarderFunctions'
+import {matches, orderTeams2} from './mocks/LeaderBoard.mock';
+import MatchModel from '../models/MatchModel';
+import TeamModel from '../models/TeamModel';
 
 chai.use(chaiHttp);
 
@@ -72,6 +74,20 @@ describe('LeaderBoardHome Test', function() {
         const result = goalsOwn(id, matches)
 
         expect(result).to.equal(2)
+    });
+
+    it('test function efficiencyFinal', async function(){
+        const result = efficiencyFinal(6, 7, 2, 3)
+
+        expect(result).to.equal('86.67')
+    });
+
+    it('Test endpoint leaderBoard', async function(){
+        sinon.stub(SequelizeMatches, 'findAll').resolves(orderTeams2 as any)
+
+        const {status, body} = await chai.request(app).get('/leaderBoard');
+
+        expect(status).to.equal(200)
     });
 });
 

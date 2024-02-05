@@ -1,14 +1,13 @@
+import { ITeam } from '../Interfaces/teams/ITeam';
+import { order, orderFinal } from '../utils/leaderBoarderFunctions';
 import { ITeamModel } from '../Interfaces/teams/ITeamModel';
 import TeamModel from '../models/TeamModel';
 import MatchModel from '../models/MatchModel';
-// import { IMatch } from '../Interfaces/matches/IMatch';
 import { IMatchModel } from '../Interfaces/matches/IMatchModel';
-// import { ServiceMessage, ServiceResponse,
-//   ServiceResponseCreated,
-//   ServiceResponseError } from '../Interfaces/ServiceResponse';
-import { totalPoints, totalGames,
-  totalVictories, totalDraws, totalLosses,
-  goalsFavor, goalsOwn, efficiency, order } from '../utils/leaderBoardAwayFunctions';
+import { totalPointsAway, totalGamesAway,
+  totalVictoriesAway, totalDrawsAway, totalLossesAway,
+  goalsFavorAway, goalsOwnAway,
+  efficiencyAway, orderAway } from '../utils/leaderBoardAwayFunctions';
 
 export default class LeaderBoard {
   constructor(
@@ -22,17 +21,25 @@ export default class LeaderBoard {
 
     const leaderBoardAway = teams.map((team) => ({
       name: team.teamName,
-      totalPoints: totalPoints(team.id, matches),
-      totalGames: totalGames(team.id, matches),
-      totalVictories: totalVictories(team.id, matches),
-      totalDraws: totalDraws(team.id, matches),
-      totalLosses: totalLosses(team.id, matches),
-      goalsFavor: goalsFavor(team.id, matches),
-      goalsOwn: goalsOwn(team.id, matches),
-      goalsBalance: goalsFavor(team.id, matches) - goalsOwn(team.id, matches),
-      efficiency: efficiency(team.id, matches).toFixed(2),
+      totalPoints: totalPointsAway(team.id, matches),
+      totalGames: totalGamesAway(team.id, matches),
+      totalVictories: totalVictoriesAway(team.id, matches),
+      totalDraws: totalDrawsAway(team.id, matches),
+      totalLosses: totalLossesAway(team.id, matches),
+      goalsFavor: goalsFavorAway(team.id, matches),
+      goalsOwn: goalsOwnAway(team.id, matches),
+      goalsBalance: goalsFavorAway(team.id, matches) - goalsOwnAway(team.id, matches),
+      efficiency: efficiencyAway(team.id, matches).toFixed(2),
     }));
-    const result = order(leaderBoardAway);
+    const result = orderAway(leaderBoardAway);
     return { status: 'SUCCESSFUL', data: result };
+  }
+
+  public async leaderBoard() {
+    const matches = await this.matchModel.findMatchesNotInProgress();
+    const teams: ITeam[] = await this.teamModel.findAll();
+    const result = orderFinal(teams, matches);
+    const resultFinal = order(result);
+    return { status: 'SUCCESSFUL', data: resultFinal };
   }
 }

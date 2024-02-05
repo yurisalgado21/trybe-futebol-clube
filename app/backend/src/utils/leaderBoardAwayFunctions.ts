@@ -1,6 +1,6 @@
 import { IMatch, LeaderBoarderResponse } from '../Interfaces/matches/IMatch';
 
-const totalPoints = (id: number, matches: IMatch[]) => {
+const totalPointsAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match: IMatch) => {
@@ -13,13 +13,13 @@ const totalPoints = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const totalGames = (id: number, matches: IMatch[]) => {
+const totalGamesAway = (id: number, matches: IMatch[]) => {
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
 
   return filteredMatch.length;
 };
 
-const totalVictories = (id: number, matches: IMatch[]) => {
+const totalVictoriesAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match) => {
@@ -30,7 +30,7 @@ const totalVictories = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const totalDraws = (id: number, matches: IMatch[]) => {
+const totalDrawsAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match) => {
@@ -41,7 +41,7 @@ const totalDraws = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const totalLosses = (id: number, matches: IMatch[]) => {
+const totalLossesAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match) => {
@@ -52,7 +52,7 @@ const totalLosses = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const goalsFavor = (id: number, matches: IMatch[]) => {
+const goalsFavorAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match) => {
@@ -61,7 +61,7 @@ const goalsFavor = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const goalsOwn = (id: number, matches: IMatch[]) => {
+const goalsOwnAway = (id: number, matches: IMatch[]) => {
   let total = 0;
   const filteredMatch = matches.filter((match: IMatch) => match.awayTeamId === id);
   filteredMatch.forEach((match) => {
@@ -70,10 +70,10 @@ const goalsOwn = (id: number, matches: IMatch[]) => {
   return total;
 };
 
-const efficiency = (id: number, matches: IMatch[]) =>
-  (totalPoints(id, matches) / (totalGames(id, matches) * 3)) * 100;
+const efficiencyAway = (id: number, matches: IMatch[]) =>
+  (totalPointsAway(id, matches) / (totalGamesAway(id, matches) * 3)) * 100;
 
-const order = (leaderBoardAway: LeaderBoarderResponse[]) => {
+const orderAway = (leaderBoardAway: LeaderBoarderResponse[]) => {
   const result = [...leaderBoardAway]
     .sort((a, b) => b.totalPoints - a.totalPoints
     || b.goalsBalance - a.goalsBalance || b.goalsFavor - a.goalsFavor);
@@ -81,13 +81,13 @@ const order = (leaderBoardAway: LeaderBoarderResponse[]) => {
 };
 
 export {
-  totalPoints,
-  totalGames,
-  totalVictories,
-  totalDraws,
-  totalLosses,
-  goalsFavor,
-  goalsOwn,
-  efficiency,
-  order,
+  totalPointsAway,
+  totalGamesAway,
+  totalVictoriesAway,
+  totalDrawsAway,
+  totalLossesAway,
+  goalsFavorAway,
+  goalsOwnAway,
+  efficiencyAway,
+  orderAway,
 };
