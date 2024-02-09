@@ -23,17 +23,14 @@ Docker: Configuração do Docker Compose para unir todos os serviços conteineri
 Validação Contínua
 Recomendamos a verificação constante da implementação dos requisitos no back-end, acessando a página no front-end que consome a funcionalidade. Isso garante que a integração esteja alinhada às expectativas e funcione conforme planejado.
 
-Instruções de Uso
-Seu projeto vai conter um arquivo docker-compose.yml que será utilizado pelo avaliador para realizar o build da aplicação, você não deve alterá-lo ou excluí-lo. Para executar a aplicação na sua máquina local, execute o seguinte comando na raiz do projeto:
+Instruções de Uso:
+Esse projeto vai conter um arquivo docker-compose.yml que será utilizado pelo avaliador para realizar o build da aplicação, você não deve alterá-lo ou excluí-lo. Para executar a aplicação na sua máquina local, execute o seguinte comando na raiz do projeto:
 
-bash
-Copy code
 npm run compose:up
+
 Lembre-se de iniciar seu Docker Compose antes de testar localmente!
 
 Ao rodar o comando npm install na pasta raiz do projeto, você estará instalando somente as dependências para rodar os requisitos do projeto. Cada diretório (frontend e backend) possui suas próprias dependências - você pode instalá-las de forma rápida rodando o comando:
 
-bash
-Copy code
 npm run install:apps
 ou executando npm install dentro de cada diretório.
