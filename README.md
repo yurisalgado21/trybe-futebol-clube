@@ -1,35 +1,39 @@
 README
 
+
 Desenvolvimento do Projeto TFC: Integração, Dockerização e Modelagem de Dados
+Este é o README do projeto TFC, desenvolvido como parte do módulo back-end da Trybe.
 
- Hoje irei falar um pouco sobre o projeto TFC, meu último projeto do módulo back-end da trybe 
+Sobre o Projeto
+O TFC é um site informativo dedicado a fornecer dados detalhados sobre partidas e classificações de futebol. Nosso foco principal foi criar uma experiência integrada e eficiente para os entusiastas do esporte, unindo tecnologia e paixão pelo futebol.
 
-Sobre o Projeto:
-O TFC é um site informativo dedicado a fornecer dados detalhados sobre partidas e classificações de futebol. foco principal foi criar uma experiência integrada e eficiente para os entusiastas do esporte, unindo tecnologia e paixão pelo futebol.
+Desenvolvimento
+O desenvolvimento do projeto envolveu várias etapas cruciais:
 
-o desenvolvimento de uma API robusta utilizando a metodologia TDD (Test-Driven Development). Além disso, temos a integração da aplicação por meio do Docker Compose, garantindo uma execução suave e eficiente ao consumir dados de um banco de dados configurado como container Docker MySQL. Um Sistema de login com JWT que retorna um token ao ser logado corretamente.  e testes de cobertura acima de 80% cobrindo mais de 100 linhas.
-
-Modelagem de Dados com Sequelize:
-Um dos pilares do back-end dockerizado é a modelagem de dados utilizando o Sequelize. Esta abordagem proporciona uma estrutura sólida para o desenvolvimento, garantindo que as regras de negócio estabelecidas no projeto sejam respeitadas.A API foi concebida para ser consumida pelo front-end já integrado no projeto, proporcionando uma experiência fluida e coesa.
-
-🔧 Componentes-Chave do Projeto:
-1️⃣ Banco de Dados:
-
-Configurado como um container Docker MySQL no docker-compose.
-Responsável por fornecer dados ao serviço de backend.
-Acessível pelo Sequelize durante os testes via porta 3306 do localhost.
-2️⃣ Back-end:
-
-Executado na porta 3001 para atender às requisições padrão do front-end.
-Inicialização a partir do arquivo app/backend/src/server.ts.
-Utilização do Express, garantindo a resposta adequada às variáveis de ambiente.
-3️⃣ Front-end:
-
-Concluído e não requer modificações substanciais.
-Comunicação efetiva com o serviço de back-end através da URL http://localhost:3001.
-4️⃣ Docker:
-
-Configuração do Docker Compose para unir todos os serviços conteinerizados (backend, frontend e db).
-Utilização de Dockerfiles nas raízes do front-end e back-end para inicialização eficiente da aplicação.
-🧪 Validação Contínua:
+API Robusta com TDD: Utilizamos a metodologia TDD (Test-Driven Development) para desenvolver uma API robusta, garantindo alta qualidade e confiabilidade.
+Integração via Docker Compose: Docker Compose foi empregado para integrar eficientemente todos os serviços necessários, garantindo uma execução suave e eficiente.
+Modelagem de Dados com Sequelize: Utilizamos o Sequelize para modelagem de dados, garantindo uma estrutura sólida e respeitando as regras de negócio do projeto.
+Sistema de Login com JWT: Implementamos um sistema de login com JWT que fornece tokens de autenticação após o login bem-sucedido.
+Testes de Cobertura: Nossos testes de cobertura ultrapassam 80%, cobrindo mais de 100 linhas de código.
+Componentes-Chave do Projeto
+Banco de Dados: Configurado como um container Docker MySQL no docker-compose. Responsável por fornecer dados ao serviço de backend.
+Back-end: Executado na porta 3001, utiliza Express para atender às requisições padrão do front-end.
+Front-end: Comunica-se efetivamente com o serviço de back-end através da URL http://localhost:3001.
+Docker: Configuração do Docker Compose para unir todos os serviços conteinerizados (backend, frontend e db).
+Validação Contínua
 Recomendamos a verificação constante da implementação dos requisitos no back-end, acessando a página no front-end que consome a funcionalidade. Isso garante que a integração esteja alinhada às expectativas e funcione conforme planejado.
+
+Instruções de Uso
+Seu projeto vai conter um arquivo docker-compose.yml que será utilizado pelo avaliador para realizar o build da aplicação, você não deve alterá-lo ou excluí-lo. Para executar a aplicação na sua máquina local, execute o seguinte comando na raiz do projeto:
+
+bash
+Copy code
+npm run compose:up
+Lembre-se de iniciar seu Docker Compose antes de testar localmente!
+
+Ao rodar o comando npm install na pasta raiz do projeto, você estará instalando somente as dependências para rodar os requisitos do projeto. Cada diretório (frontend e backend) possui suas próprias dependências - você pode instalá-las de forma rápida rodando o comando:
+
+bash
+Copy code
+npm run install:apps
+ou executando npm install dentro de cada diretório.
